@@ -77,7 +77,7 @@ module.exports = function(grunt) {
       }
     },
 
-    prodShell: {
+    shell: {
       prodServer: {
         command: [
           'azure site scale mode standard shortly-IC',
@@ -86,18 +86,7 @@ module.exports = function(grunt) {
           'azure site scale mode free shortly-IC'
           ].join('&&')
       }
-    },
-
-    localShell: {
-      prodServer: {
-        command: [
-          'npm start',
-          'git push azure master',
-          'azure site browse',
-          'azure site scale mode free shortly-IC'
-          ].join('&&')
-      }
-    },
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -146,23 +135,32 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('deploy', function(n) {
-    if(grunt.option('prod')) {
-     'mochaTest',
-     'jshint',
-     'concat',
-     'uglify',
-     'cssmin',
-     'prodShell' 
-    } else {
-      'mochaTest',
-      'jshint',
-      'concat',
-      'uglify',
-      'cssmin',
-      'localShell'
-    }
-  });
+  grunt.registerTask('deploy', [
+    'mochaTest',
+    'jshint',
+    'concat',
+    'uglify',
+    'cssmin',
+    'shell' 
+  ]);
+
+  // grunt.registerTask('deploy', function(n) {
+  //   if(grunt.option('prod')) {
+  //    'mochaTest',
+  //    'jshint',
+  //    'concat',
+  //    'uglify',
+  //    'cssmin',
+  //    'prodShell' 
+  //   } else {
+  //     'mochaTest',
+  //     'jshint',
+  //     'concat',
+  //     'uglify',
+  //     'cssmin',
+  //     'localShell'
+  //   }
+  // });
 
   // grunt.registerTask('deploy', [
   //     // add your production server task here
