@@ -17,8 +17,5 @@ Icon
 .flooignore
 
 # Prod files
-built.min.js
-style.min.css
-built.js
 node_modules
 db
