@@ -1,36 +1,14 @@
 var mongoose = require('mongoose');
 var path = require('path');
 
-mongoose.connect('mongodb://localhost/shortly');
+var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/shortly';
+
+var db = mongoose.connection;
+
+mongoose.connect(connectionString);
 
 var Schema = mongoose.Schema;
 
-var urls = new Schema({
-  url: String,
-  base_url: String,
-  code: String,
-  title: String,
-  visits: Number,
-  created_at: Date
-});
-
-
-var users = new Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  created_at: {type: Date, default: Date.now}
-});
-
-var User = mongoose.model('User', users);
-var Url = mongoose.model('Url', urls);
-
-module.exports.user = User;
-module.exports.url = Url;
-
-var test = new User({
-  username: 'chris',
-  password: 'test',
-});
 // var Bookshelf = require('bookshelf');
 // var path = require('path');
 
