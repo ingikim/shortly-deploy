@@ -6,9 +6,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var users = new Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  created_at: {type: Date, default: Date.now}
+  // username: {type: String, required: true, unique: true},
+  username: {type: String, required: true, index: { unique: true } },
+  password: {type: String, required: true}
+  // created_at: {type: Date, default: Date.now}
 });
 
 var User = mongoose.model('User', users);
@@ -22,9 +23,10 @@ users.pre('save', function(next) {
     });
 });
 
-User.comparePassword = function(attemptedPassword, savedPassword, callback) {
-  bcrypt.compare(attemptedPassword, savedPassword, function(err, isMatch) {
-    callback(isMatch);
+User.prototype.comparePassword = function(attemptedPassword, callback) {
+  bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
+    if(err) return callback(err);
+    callback(null, isMatch);
   });
 }
 

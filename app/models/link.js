@@ -9,7 +9,7 @@ var urls = new Schema({
   code: String,
   title: String,
   visits: Number,
-  created_at: Date
+  // created_at: Date
 });
 
 var Link = mongoose.model('Url', urls);

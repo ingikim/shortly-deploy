@@ -4,6 +4,10 @@ var path = require('path');
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/shortly';
 
 var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+ console.log('Mongodb connection open');
+});
 
 mongoose.connect(connectionString);
 
