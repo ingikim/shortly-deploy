@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var path = require('path');
 
-var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/shortly';
+var connectionString = process.env.MONGOLAB_URI || 'mongodb://localhost/shortly';
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
