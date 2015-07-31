@@ -19,3 +19,6 @@ Icon
 # Prod files
 node_modules
 db
+
+# Minified files
+public/dist
